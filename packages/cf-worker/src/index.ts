@@ -2,6 +2,7 @@ import { OpenAPIHono } from "@hono/zod-openapi";
 import { swaggerUI } from "@hono/swagger-ui";
 
 import api from "./api";
+import importHtml from "./import.html";
 
 const app = new OpenAPIHono();
 export default app;
@@ -24,3 +25,5 @@ app.doc("/api/doc", {
     title: "Read Aloud Transit API",
   },
 });
+
+app.get("/import", (c) => c.html(importHtml));

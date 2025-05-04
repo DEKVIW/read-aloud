@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>导入配置 - 微软"朗读"TTS 转发器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+    <style>
+      body {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .center {
+        text-align: center;
+      }
+      .copy-btn {
+        background: #0078d4;
+        color: #fff;
+        border: none;
+        padding: 0.5em 1.2em;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1em;
+      }
+      .copy-btn:hover {
+        background: #005fa3;
+      }
+      .config-box {
+        width: 100%;
+        min-height: 80px;
+        margin-bottom: 1em;
+      }
+      input[type="text"] {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="center">
+      <h1>导入配置</h1>
+      <p>将本服务集成到你的阅读器/爱阅记/源阅读等应用。</p>
+    </header>
+    <main>
+      <section>
+        <label for="api-url">API 地址：</label>
+        <input
+          id="api-url"
+          type="text"
+          value="https://read-aloud22.dekviw233.workers.dev/api/synthesis"
+        />
+        <label for="token">Token（可选）：</label>
+        <input id="token" type="text" />
+        <button class="copy-btn" onclick="generateConfig()">
+          生成并复制配置
+        </button>
+        <textarea id="config-result" class="config-box" readonly></textarea>
+      </section>
+      <section>
+        <h2>使用说明</h2>
+        <ul>
+          <li>
+            将上方生成的配置粘贴到你的阅读器/爱阅记/源阅读等应用的 TTS 配置中。
+          </li>
+          <li>如需自定义参数，请手动修改 API 地址。</li>
+        </ul>
+      </section>
+    </main>
+    <footer class="center" style="margin-top: 2em">
+      <a href="https://github.com/DEKVIW/read-aloud" target="_blank">GitHub</a>
+    </footer>
+    <script>
+      function generateConfig() {
+        const apiUrl = document.getElementById("api-url").value.trim();
+        const token = document.getElementById("token").value.trim();
+        let config = {
+          api: apiUrl,
+        };
+        if (token) config.token = token;
+        const result = JSON.stringify(config, null, 2);
+        document.getElementById("config-result").value = result;
+        navigator.clipboard.writeText(result).then(() => {
+          alert("配置已复制到剪贴板！");
+        });
+      }
+    </script>
+  </body>
+</html>
