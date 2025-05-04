@@ -1,0 +1,7 @@
+name = "read-aloud"
+main = "packages/cf-worker/dist-prebuild/workerd.mjs"
+compatibility_date = "2024-09-23"
+compatibility_flags = [ "nodejs_compat" ]
+
+[build]
+command = "npm install -g pnpm && cd packages/cf-worker && pnpm install && pnpm run prebuild:worker" 
